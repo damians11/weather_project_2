@@ -1,3 +1,7 @@
+build/
+open62541/
+!.vscode/
+
 # Prerequisites
 *.d
 
