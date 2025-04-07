@@ -4,7 +4,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <stdio.h>
-
+/*
 void *receive_c3_thread(void *arg) {
     while (1) {
         WeatherData data;
@@ -15,7 +15,7 @@ void *receive_c3_thread(void *arg) {
         data.solar_radiation = 100;
 
         enqueue(data);
-        sleep(1000);
+        sleep(10);
     }
     return NULL;
-}
+}*/

@@ -14,11 +14,11 @@ int main() {
 
     pthread_t t_c2, t_c3, t_db;
     pthread_create(&t_c2, NULL, receive_c2_thread, NULL);
-    pthread_create(&t_c3, NULL, receive_c3_thread, NULL);
+    //pthread_create(&t_c3, NULL, receive_c3_thread, NULL);
     pthread_create(&t_db, NULL, db_writer_thread, NULL);
 
     pthread_join(t_c2, NULL);
-    pthread_join(t_c3, NULL);
+    //pthread_join(t_c3, NULL);
     pthread_join(t_db, NULL);
 
     return 0;
