@@ -1,7 +1,7 @@
 #ifndef FIFO_QUEUE_H
 #define FIFO_QUEUE_H
 
-#include "common.h"
+#include "global.h"
 
 void init_queue();
 int enqueue(WeatherData data);
