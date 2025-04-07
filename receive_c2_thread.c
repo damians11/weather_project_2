@@ -77,7 +77,7 @@ void *receive_c2_thread(void *arg) {
 
     UA_Client *client = create_opcua_client(url);
     if (!client) {
-        fprintf(stderr, "[C2 OPCUA] Nie uda?o si? po??czy? z serwerem\n");
+        fprintf(stderr, "[C2 OPCUA] Nie udalo sie polaczyc z serwerem\n");
         return NULL;
     }
 

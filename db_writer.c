@@ -52,7 +52,7 @@ void *db_writer_thread(void *arg) {
                         data.wind_speed, data.solar_radiation);
                 fclose(file);
             } else {
-                fprintf(stderr, "[LOG ERROR] Nie mo?na otworzy? pliku %s\n", BACKUP_FILE);
+                fprintf(stderr, "[LOG ERROR] Nie mozna otworzyc pliku %s\n", BACKUP_FILE);
             }
 
         } else {
