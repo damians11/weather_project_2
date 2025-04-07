@@ -23,7 +23,7 @@ int enqueue(WeatherData data) {
         return 0;  // sukces
     } else {
         pthread_mutex_unlock(&queue_mutex);
-        return -1; // kolejka pena
+        return -1; // kolejka pelna
     }
 }
 
@@ -31,13 +31,13 @@ int dequeue(WeatherData *data) {
     pthread_mutex_lock(&queue_mutex);
     if (count == 0) {
         pthread_mutex_unlock(&queue_mutex);
-        return -1;
+        return 0;
     }
     *data = queue[front];
     front = (front + 1) % QUEUE_SIZE;
     count--;
     pthread_mutex_unlock(&queue_mutex);
-    return 0;
+    return 1;
 }
 
 int is_queue_empty() {
