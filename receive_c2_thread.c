@@ -33,7 +33,7 @@ static void handle_time(UA_Client *client, UA_UInt32 subId, void *subContext,
                         UA_UInt32 monId, void *monContext, UA_DataValue *value) {
     if (UA_Variant_hasScalarType(&value->value, &UA_TYPES[UA_TYPES_STRING])) {
         strncpy(currentData.source, "C2", sizeof(currentData.source));
-        snprintf(currentData.timestamp, sizeof(currentData.timestamp), "%.*s",
+        snprintf(currentData.timestamp_c2, sizeof(currentData.timestamp_c2), "%.*s",
                  (int)((UA_String *)value->value.data)->length,
                  ((UA_String *)value->value.data)->data);
         has_time = 1;
