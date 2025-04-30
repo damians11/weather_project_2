@@ -15,16 +15,20 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <time.h>
 
+static time_t time_received_c2 = 0;
+static int wait_flag_c2 = 1;
 static WeatherData currentData;
 static int has_time = 0, has_temp = 0, has_wind = 0, has_cloud = 0;
 
 static void try_enqueue() {
-    if (has_time && has_temp && has_wind && has_cloud) {
+    if (has_time && wait_flag_c2) {
         enqueue(currentData);
 
         // Resetuj flagi i dane
-        memset(&currentData, 0, sizeof(currentData));
+        //memset(&currentData, 0, sizeof(currentData));
+        wait_flag_c2 = 0;
         has_time = has_temp = has_wind = has_cloud = 0;
     }
 }
@@ -37,6 +41,7 @@ static void handle_time(UA_Client *client, UA_UInt32 subId, void *subContext,
                  (int)((UA_String *)value->value.data)->length,
                  ((UA_String *)value->value.data)->data);
         has_time = 1;
+        time_received_c2 = time(NULL); 
         try_enqueue();
     }
 }
@@ -99,6 +104,9 @@ void *receive_c2_thread(void *arg) {
     while (1) {
         UA_Client_run_iterate(client, 100);
         usleep(100000);
+        if (time_received_c2 != 0 && time(NULL) - time_received_c2 >= 10) {
+                wait_flag_c2 = 1;
+        }
     }
 
     UA_Client_delete(client);
