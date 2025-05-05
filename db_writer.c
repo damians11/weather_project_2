@@ -34,6 +34,14 @@ void *db_writer_thread(void *arg) {
                 fprintf(stderr, "[TIME ERROR] Niepoprawny format daty: %s\n", input_time);
                 continue;
             }
+            
+            if (mysql_ping(conn)){
+                fprintf(stderr, "[DB] zerwane polaczenie, nawiazuje ponownie...\n");
+                mysql_close(conn);
+                conn = mysql_init(NULL);
+                mysql_real_connect(conn, getenv("DB_HOST"), getenv("DB_USER"), getenv("DB_PASS"),
+                                   getenv("DB_NAME"), 3306, NULL, 0);
+            }
 
             char query[1024];
             if (strcmp(src, "C2") == 0) {
